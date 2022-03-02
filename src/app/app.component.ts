@@ -7,35 +7,39 @@ import { PhotosService } from './photos.service';
   template: `
     <app-favorites></app-favorites>
     <div class="cards-container">
-      <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="photos; else loading">
-          <div fxFlex="25%" *ngFor="let photo of photos; let i = index">
-            <mat-card>
-              <img mat-card-image [src]="photo.thumbnailUrl" alt="..." />
-              <mat-card-content>
-                <mat-card-title>{{ photo.title | cut}}</mat-card-title>
-                <mat-card-actions>
-                  <button
-                    mat-fab
-                    color="primary"
-                    style="margin-right:2em;"
-                    (click)="onDeletePhoto(photo.id, i)"
-                    aria-label="Example icon button with a delete icon"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <button
-                    mat-fab
-                    (click)="onFavorite()"
-                    style="color:white; background-color:red;"
-                    aria-label="Example icon button with a heart icon"
-                  >
-                    <mat-icon>favorite</mat-icon>
-                  </button>
-                </mat-card-actions>
-              </mat-card-content>
-            </mat-card>
-          </div>
+      <div
+        fxLayout="row wrap"
+        fxLayoutGap="16px grid"
+        *ngIf="photos; else loading"
+      >
+        <div fxFlex="25%" *ngFor="let photo of photos; let i = index">
+          <mat-card>
+            <img mat-card-image [src]="photo.thumbnailUrl" alt="..." />
+            <mat-card-content>
+              <mat-card-title>{{ photo.title | cut }}</mat-card-title>
+              <mat-card-actions>
+                <button
+                  mat-fab
+                  color="primary"
+                  style="margin-right:2em;"
+                  (click)="onDeletePhoto(photo.id, i)"
+                  aria-label="Example icon button with a delete icon"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button
+                  mat-fab
+                  (click)="onFavorite()"
+                  style="color:white; background-color:red;"
+                  aria-label="Example icon button with a heart icon"
+                >
+                  <mat-icon>favorite</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
         </div>
+      </div>
     </div>
     <ng-template #loading>
       <!-- <div class="spinner-border" role="status">
@@ -46,9 +50,9 @@ import { PhotosService } from './photos.service';
   `,
   styles: [
     `
-       .cards-container {
+      .cards-container {
         padding: 2em;
-        text-align:center;
+        text-align: center;
       }
     `,
   ],
