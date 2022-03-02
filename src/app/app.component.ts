@@ -18,7 +18,7 @@ import { PhotosService } from './photos.service';
         'end',
         style({
           'background-color': 'black',
-          'color': 'white'
+          color: 'white',
         })
       ),
     ]),
@@ -33,13 +33,12 @@ import { PhotosService } from './photos.service';
         'end',
         style({
           'background-color': '#933e3e',
-          'color': 'white'
+          color: 'white',
         })
       ),
     ]),
   ],
   template: `
-
     <!-- <div class="cards-container">
       <div
         fxLayout="row wrap"
@@ -93,13 +92,19 @@ import { PhotosService } from './photos.service';
       </div>
     </cdk-virtual-scroll-viewport> -->
 
-    <mat-slide-toggle style="height: 5em;"
-      (change)="cambiaColor()"
-      [color]="color"
-      [checked]="checked"
-      [disabled]="disabled"
-      >Dark Mode</mat-slide-toggle
-    >
+   <div [@chcol]="stato" style="text-align: center;">
+      <mat-slide-toggle
+
+        style="height: 5em;"
+        (change)="cambiaColor()"
+        [color]="color"
+        [checked]="checked"
+        [disabled]="disabled"
+      >
+        <span *ngIf="status" class="material-icons"> light_mode </span>
+        <span *ngIf="!status" class="material-icons"> dark_mode </span>
+      </mat-slide-toggle>
+   </div>
 
     <cdk-virtual-scroll-viewport
       [@change]="stato"
@@ -108,7 +113,7 @@ import { PhotosService } from './photos.service';
       itemSize="50"
       *ngIf="photos; else loading"
     >
-    <app-favorites></app-favorites>
+      <app-favorites></app-favorites>
       <div
         class="example-item"
         *cdkVirtualFor="let photo of photos; let i = index"
@@ -146,7 +151,6 @@ import { PhotosService } from './photos.service';
       </div>
       <mat-spinner></mat-spinner>
     </ng-template>
-
   `,
   styles: [
     `
@@ -180,6 +184,7 @@ import { PhotosService } from './photos.service';
 export class AppComponent {
   photos: Photo[] | undefined;
   stato = 'start';
+  status=true;
   constructor(private photoSrv: PhotosService) {}
 
   color: ThemePalette = 'primary';
@@ -188,6 +193,7 @@ export class AppComponent {
 
   cambiaColor() {
     this.stato = this.stato == 'start' ? 'end' : 'start';
+    this.status = this.status == true ? false : true;
   }
 
   ngOnInit(): void {
