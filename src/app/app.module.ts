@@ -12,12 +12,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CutPipe } from './cut.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ToggleDarkModeComponent } from './toggle-dark-mode/toggle-dark-mode.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FavoritesComponent,
-    CutPipe
+    CutPipe,
+    ToggleDarkModeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatIconModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSlideToggleModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
