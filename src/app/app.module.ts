@@ -13,14 +13,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CutPipe } from './cut.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { ToggleDarkModeComponent } from './toggle-dark-mode/toggle-dark-mode.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FavoritesComponent,
-    CutPipe,
-    ToggleDarkModeComponent
+    CutPipe
   ],
   imports: [
     BrowserModule,

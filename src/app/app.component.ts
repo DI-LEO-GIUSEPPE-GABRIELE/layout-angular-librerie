@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { Photo } from './models/photo';
 import { PhotosService } from './photos.service';
 
@@ -59,6 +60,7 @@ import { PhotosService } from './photos.service';
       </div>
     </cdk-virtual-scroll-viewport> -->
 
+    <mat-slide-toggle (change)="cambiaColor($event)" [color]="color" [checked]="checked" [disabled]="disabled">Dark Mode</mat-slide-toggle>
 
     <cdk-virtual-scroll-viewport appendOnly class="example-viewport" itemSize="50" *ngIf="photos; else loading">
       <div class="example-item" *cdkVirtualFor="let photo of photos; let i = index">
@@ -95,9 +97,12 @@ import { PhotosService } from './photos.service';
       </div>
       <mat-spinner></mat-spinner>
     </ng-template>
+
+
   `,
   styles: [
     `
+
 
 .example-viewport {
   height: 100%;
@@ -129,6 +134,16 @@ import { PhotosService } from './photos.service';
 export class AppComponent {
   photos: Photo[] | undefined;
   constructor(private photoSrv: PhotosService) {}
+
+  color: ThemePalette = 'primary';
+  checked = false;
+  disabled = false;
+
+  cambiaColor($event:any){
+    if ($event.checked){
+      alert(true)
+    } else {alert( false)}
+  }
 
 
   ngOnInit(): void {
