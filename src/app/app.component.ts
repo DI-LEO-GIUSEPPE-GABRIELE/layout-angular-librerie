@@ -1,3 +1,4 @@
+import { state, style, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Photo } from './models/photo';
@@ -5,8 +6,40 @@ import { PhotosService } from './photos.service';
 
 @Component({
   selector: 'app-root',
+  animations: [
+    trigger('change', [
+      state(
+        'start',
+        style({
+          'background-color': 'white',
+        })
+      ),
+      state(
+        'end',
+        style({
+          'background-color': 'black',
+          'color': 'white'
+        })
+      ),
+    ]),
+    trigger('chcol', [
+      state(
+        'start',
+        style({
+          'background-color': 'white',
+        })
+      ),
+      state(
+        'end',
+        style({
+          'background-color': '#933e3e',
+          'color': 'white'
+        })
+      ),
+    ]),
+  ],
   template: `
-    <app-favorites></app-favorites>
+
     <!-- <div class="cards-container">
       <div
         fxLayout="row wrap"
@@ -60,11 +93,27 @@ import { PhotosService } from './photos.service';
       </div>
     </cdk-virtual-scroll-viewport> -->
 
-    <mat-slide-toggle (change)="cambiaColor($event)" [color]="color" [checked]="checked" [disabled]="disabled">Dark Mode</mat-slide-toggle>
+    <mat-slide-toggle style="height: 5em;"
+      (change)="cambiaColor()"
+      [color]="color"
+      [checked]="checked"
+      [disabled]="disabled"
+      >Dark Mode</mat-slide-toggle
+    >
 
-    <cdk-virtual-scroll-viewport appendOnly class="example-viewport" itemSize="50" *ngIf="photos; else loading">
-      <div class="example-item" *cdkVirtualFor="let photo of photos; let i = index">
-        <mat-card>
+    <cdk-virtual-scroll-viewport
+      [@change]="stato"
+      appendOnly
+      class="example-viewport"
+      itemSize="50"
+      *ngIf="photos; else loading"
+    >
+    <app-favorites></app-favorites>
+      <div
+        class="example-item"
+        *cdkVirtualFor="let photo of photos; let i = index"
+      >
+        <mat-card [@chcol]="stato" style="padding:3em;">
           <img mat-card-image [src]="photo.thumbnailUrl" alt="..." />
           <mat-card-content>
             <mat-card-title>{{ photo.title | cut }}</mat-card-title>
@@ -98,24 +147,21 @@ import { PhotosService } from './photos.service';
       <mat-spinner></mat-spinner>
     </ng-template>
 
-
   `,
   styles: [
     `
+      .example-viewport {
+        height: 100%;
+        width: 100%;
+        border: 1px solid black;
+      }
 
-
-.example-viewport {
-  height: 100%;
-  width: 100%;
-  border: 1px solid black;
-}
-
-.example-item {
-  margin: 0 auto;
-  width:500px;
-  height: 650px;
-  text-align: center;
-}
+      .example-item {
+        margin: 0 auto;
+        width: 500px;
+        height: 650px;
+        text-align: center;
+      }
 
       /* cdk-virtual-scroll-viewport {
         height: 500px;
@@ -133,18 +179,16 @@ import { PhotosService } from './photos.service';
 })
 export class AppComponent {
   photos: Photo[] | undefined;
+  stato = 'start';
   constructor(private photoSrv: PhotosService) {}
 
   color: ThemePalette = 'primary';
   checked = false;
   disabled = false;
 
-  cambiaColor($event:any){
-    if ($event.checked){
-      alert(true)
-    } else {alert( false)}
+  cambiaColor() {
+    this.stato = this.stato == 'start' ? 'end' : 'start';
   }
-
 
   ngOnInit(): void {
     this.photoSrv.get().subscribe(

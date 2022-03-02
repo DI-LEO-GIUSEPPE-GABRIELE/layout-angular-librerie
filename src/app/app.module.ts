@@ -30,7 +30,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     ScrollingModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
