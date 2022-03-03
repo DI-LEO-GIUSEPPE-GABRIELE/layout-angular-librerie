@@ -211,8 +211,8 @@ export class AppComponent {
   onDeletePhoto(id: number, index: number) {
     this.photoSrv.delete(id).subscribe(
       (ris) => {
-        console.log(ris);
-        this.photos?.splice(index, 1);
+        // this.photos?.splice(index, 1);
+        this.photos = this.photos?.filter(p=>p.id !== id)
       },
       (err) => {
         alert(err);
